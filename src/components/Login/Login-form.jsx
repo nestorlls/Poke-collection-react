@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { login } from '../../services/auth-services';
 import { Input } from '../Input/Input';
 
-export const LoginForm = () => {
+export const LoginForm = ({ onLogin }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -10,14 +10,12 @@ export const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(formData)
-      .then((user) => console.log(user))
-      .catch(console.log);
+    onLogin(formData);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: e.target.value });
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
