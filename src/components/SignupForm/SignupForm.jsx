@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '../Input/Input';
 
-export const SignUpForm = () => {
+export const SignUpForm = (onSignup) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -11,15 +11,13 @@ export const SignUpForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    onSignup(formData);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: e.target.value });
-    login(formData)
-      .then((user) => console.log(user))
-      .catch(console.log);
+    setFormData({ ...formData, [name]: value });
+    login(formData).then(console.log).catch(console.log);
   };
 
   return (
