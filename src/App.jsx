@@ -1,34 +1,34 @@
-import styled from '@emotion/styled';
-import { useState } from 'react';
-import { LoginForm } from './components/Login/Login-form';
-import { SignUpForm } from './components/SignupForm/SignupForm';
-import { colors } from './styles/Colors';
-
-const CustomLink = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    color: ${colors.pink[500]};
-  }
-`;
+import { useEffect, useState } from 'react';
+import { AuthenticateApp } from './AuthenticateApp';
+import { login } from './services/auth-services';
+import { createUser, getUser } from './services/user-services';
+import { UnAuthenticateApp } from './UnAuthenticateApp';
 
 function App() {
-  const [showLogin, setShowLogin] = useState(true);
+  const [user, setUser] = useState(null);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    setShowLogin(!showLogin);
+  useEffect(() => {
+    getUser()
+      .then((u) => setUser(u))
+      .catch(console.log);
+  }, []);
+
+  const handleLogin = (credentials) => {
+    login(credentials)
+      .then((u) => setUser(u))
+      .catch(console.log);
   };
 
-  return (
-    <div>
-      <h1>Welcome to Poke Collection</h1>
-      {showLogin ? <LoginForm /> : <SignUpForm />}
-      <CustomLink onClick={handleClick}>
-        {showLogin ? 'create account' : 'Login'}
-      </CustomLink>
-    </div>
+  const handleSignUp = (userData) => {
+    createUser(credentials)
+      .then((u) => setUser(u))
+      .catch(console.log);
+  };
+
+  return user ? (
+    <AuthenticateApp />
+  ) : (
+    <UnAuthenticateApp onLogin={handleLogin} onSignup={handleSignUp} />
   );
 }
 
