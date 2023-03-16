@@ -1,7 +1,17 @@
+import styled from '@emotion/styled';
 import { useState } from 'react';
 import { LoginForm } from './components/Login/Login-form';
 import { SignUpForm } from './components/SignupForm/SignupForm';
+import { colors } from './styles/Colors';
 
+const CustomLink = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    color: ${colors.pink[500]};
+  }
+`;
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
@@ -15,9 +25,9 @@ function App() {
     <div>
       <h1>Welcome to Poke Collection</h1>
       {showLogin ? <LoginForm /> : <SignUpForm />}
-      <button onClick={handleClick}>
+      <CustomLink onClick={handleClick}>
         {showLogin ? 'create account' : 'Login'}
-      </button>
+      </CustomLink>
     </div>
   );
 }
