@@ -1,47 +1,23 @@
 import { useState } from 'react';
-import { Input } from './components/Input/Input';
+import { LoginForm } from './components/Login/Login-form';
+import { SignUpForm } from './components/SignupForm/SignupForm';
+
 
 function App() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [showLogin, setShowLogin] = useState(true);
 
-  const handleSubmit = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    console.log(formData);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: e.target.value });
-    console.log(formData);
+    setShowLogin(!showLogin);
   };
 
   return (
     <div>
       <h1>Welcome to Poke Collection</h1>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label={'Email'}
-          id={'email'}
-          name={'email'}
-          type={'email'}
-          value={formData.email}
-          onChange={handleChange}
-          placeholder='example@mail.com'
-        />
-        <Input
-          label={'Password'}
-          id={'password'}
-          name={'password'}
-          type={'password'}
-          value={formData.password}
-          onChange={handleChange}
-          placeholder='**********'
-        />
-        <button type='submit'>Login</button>
-      </form>
+      {showLogin ? <LoginForm /> : <SignUpForm />}
+      <button onClick={handleClick}>
+        {showLogin ? 'create account' : 'Login'}
+      </button>
     </div>
   );
 }
