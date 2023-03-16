@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Input } from './components/Input/Input';
 
 function App() {
   const [formData, setFormData] = useState({
@@ -21,28 +22,24 @@ function App() {
     <div>
       <h1>Welcome to Poke Collection</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='text'
-            name='email'
-            id='email'
-            value={formData.email}
-            onChange={handleChange}
-            placeholder='llanque@gmail.com'
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            name='password'
-            id='password'
-            value={formData.password}
-            onChange={handleChange}
-            placeholder='***********'
-          />
-        </div>
+        <Input
+          label={'Email'}
+          id={'email'}
+          name={'email'}
+          type={'email'}
+          value={formData.email}
+          onChange={handleChange}
+          placeholder='example@mail.com'
+        />
+        <Input
+          label={'Password'}
+          id={'password'}
+          name={'password'}
+          type={'password'}
+          value={formData.password}
+          onChange={handleChange}
+          placeholder='**********'
+        />
         <button type='submit'>Login</button>
       </form>
     </div>
