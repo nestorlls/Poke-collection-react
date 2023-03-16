@@ -8,3 +8,10 @@ export const createUser = (userData) => {
     return user;
   });
 };
+
+export const getUser = () => {
+  return apiFetch('/profile').then((u) => {
+    const { _token, ...user } = u;
+    return user;
+  });
+};
