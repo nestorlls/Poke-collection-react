@@ -8,7 +8,7 @@ export default async function apiFetch(
 
   if (token) {
     headers = {
-      Authorization: `Bearer=${token}`,
+      Authorization: `Bearer ${token}`,
       ...headers,
     };
   }
@@ -30,6 +30,10 @@ export default async function apiFetch(
 
   let data;
   if (!response.ok) {
+    if (token && response.status == 401) {
+      sessionStorage.removeItem(tokenKey);
+      window.location.reload();
+    }
     try {
       data = await response.json();
     } catch (error) {
