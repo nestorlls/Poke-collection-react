@@ -8,3 +8,7 @@ export function login(credentials) {
     return userdata;
   });
 }
+
+export function logout() {
+  return apiFetch('logout', { method: 'DELETE' });
+}
