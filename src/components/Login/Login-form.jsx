@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../context/Auth-Context';
 import { login } from '../../services/auth-services';
 import { Input } from '../Input/Input';
 
-export const LoginForm = ({ onLogin }) => {
+export const LoginForm = () => {
+  
+  const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -10,7 +14,7 @@ export const LoginForm = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(formData);
+    login(formData);
   };
 
   const handleChange = (e) => {

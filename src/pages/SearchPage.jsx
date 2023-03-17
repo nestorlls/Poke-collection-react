@@ -1,67 +1,56 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from '../components/Input/Input';
 import { getPokemon } from '../services/PokeApi-services';
-import { MdFavorite } from 'react-icons/md';
 import { colors } from '../styles/Colors';
-import { typography } from '../styles/typography';
+import { PokemonData } from '../components/PokemonData/PokemonData';
+import { Link } from 'react-router-dom';
 
-const PokeImg = styled.img`
-  max-width: 144px;
+const Error = styled.p`
+  color: ${colors.red[50]};
 `;
 
-const FavoriteButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: ${colors.gray.medium};
-  border: none;
-  border-radius: 0.8rem;
-  padding: 0.5rem 1rem;
-  font-family: ${typography.text};
-  font-weight: bold;
-  color: #fff;
-`;
+export const SearchPage = ({ favorites, onAddFavorites, onRemoveFavorites }) => {
+  const [query, setQuery] = useState('');
+  const [state, setState] = useState({
+    status: 'idle', // success, error, pending
+    data: null,
+    error: null,
+  });
 
-const formatId = (id) => {
-  id = String(id);
-  return id.lenght < 2 ? `00${id}` : id.lenght < 3 ? `$#0${id}` : `#${id}`;
-};
-
-const PokemonData = ({ data }) => {
-  return (
-    <div>
-      <h2>{data.name}</h2>
-      <p>{formatId(data.id)}</p>
-      <PokeImg src={data.sprites.other['official-artwork'].front_default} />
-      {data.types.map((element) => (
-        <p key={element.slot}>{element.type.name}</p>
-      ))}
-      <p>Weight: {data.weight / 10} kg</p>
-      <p>Height: {data.height / 10} m</p>
-      <FavoriteButton>
-        <MdFavorite />
-        Mark as favorite
-      </FavoriteButton>
-    </div>
-  );
-};
-
-export const SearchPage = () => {
-  const [query, setQuery] = useState('pikachu');
-  const [pokemon, setPokemon] = useState(null);
+  // variables derivadas
+  const { status, data: pokemon, error } = state;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(query);
+    if (query.length === 0) return;
+
+    setState({ status: 'pending', data: pokemon, error: null });
+
     getPokemon(query)
-      .then((pokemon) => setPokemon(pokemon))
-      .catch(console.log);
+      .then((pokemon) => {
+        setState({ status: 'success', data: pokemon, error: null });
+      })
+      .catch(() => {
+        setState({
+          status: 'error',
+          data: null,
+          error: 'El pokemon no existe!',
+        });
+      });
   };
+
+  // useEffect(() => {
+  //   console.log('Hola favorite', favorite);
+  // }, [favorite]);
+
+  const isFavorite = favorites.find((f) => f.pokemon_name === pokemon?.name)
+    ? true
+    : false;
 
   return (
     <div>
+      <Link to='/favorites'>Go to Favorites</Link>
       <form onSubmit={handleSubmit}>
         <Input
           name='query'
@@ -70,7 +59,17 @@ export const SearchPage = () => {
         />
         <button>Search</button>
       </form>
-      {pokemon ? <PokemonData data={pokemon} /> : 'Ready to search'}
+      {status == 'idle' && 'Ready to search'}
+      {status == 'success' && (
+        <PokemonData
+          data={pokemon}
+          onAddFavorite={onAddFavorites}
+          onRemoveFavorite={onRemoveFavorites}
+          isFavorite={isFavorite}
+        />
+      )}
+      {status == 'error' && <Error>{error}</Error>}
+      {status == 'pending' && 'Loading...'}
     </div>
   );
 };
