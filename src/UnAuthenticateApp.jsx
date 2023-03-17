@@ -13,7 +13,7 @@ const CustomLink = styled.button`
   }
 `;
 
-export const UnAuthenticateApp = ({ onLogin, onSignup }) => {
+export const UnAuthenticateApp = () => {
   const [showLogin, setShowLogin] = useState(true);
 
   const handleClick = (e) => {
@@ -24,11 +24,7 @@ export const UnAuthenticateApp = ({ onLogin, onSignup }) => {
   return (
     <div>
       <h1>Welcome to Poke Collection</h1>
-      {showLogin ? (
-        <LoginForm onLogin={onLogin} />
-      ) : (
-        <SignUpForm onSignup={onSignup} />
-      )}
+      {showLogin ? <LoginForm /> : <SignUpForm />}
       <CustomLink onClick={handleClick}>
         {showLogin ? 'create account' : 'Login'}
       </CustomLink>
