@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../context/Auth-Context';
 import { FavoritePage } from '../pages/FavoritePage';
-import { SearchPage } from '../pages/SearchPage';
 import {
   createFavorite,
   getFavorite,
   removeFavorite,
 } from '../services/favoriteServices';
 import AuthWrapper from './Auth-UI';
+import { SearchPage } from '../pages/SearchPage/SearchPage';
 
 export const AuthenticateApp = () => {
   const { logout } = useAuth();
