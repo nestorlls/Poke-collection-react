@@ -1,4 +1,5 @@
 import React from 'react';
+import InputWrapper from './Input-UI';
 
 export const Input = ({
   id,
@@ -10,9 +11,14 @@ export const Input = ({
   label,
 }) => {
   return (
-    <div>
-      {label && <label htmlFor={id || name}>{label}:</label>}
+    <InputWrapper>
+      {label && (
+        <label className='label-input' htmlFor={id || name}>
+          {label}
+        </label>
+      )}
       <input
+        className='input'
         type={type}
         name={name}
         id={id || name}
@@ -20,6 +26,6 @@ export const Input = ({
         onChange={onChange}
         placeholder={placeholder}
       />
-    </div>
+    </InputWrapper>
   );
 };
