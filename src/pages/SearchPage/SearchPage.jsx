@@ -1,16 +1,22 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
-import { Input } from '../components/Input/Input';
-import { getPokemon } from '../services/PokeApi-services';
-import { colors } from '../styles/Colors';
-import { PokemonData } from '../components/PokemonData/PokemonData';
+import imgPokemon from '../../assets/imgPokemon.svg';
+import { Input } from '../../components/Input/Input';
+import { getPokemon } from '../../services/PokeApi-services';
+import { colors } from '../../styles/Colors';
+import { PokemonData } from '../../components/PokemonData/PokemonData';
 import { Link } from 'react-router-dom';
+import SearchWrapper from './SearchPage-UI';
 
 const Error = styled.p`
   color: ${colors.red[50]};
 `;
 
-export const SearchPage = ({ favorites, onAddFavorites, onRemoveFavorites }) => {
+export const SearchPage = ({
+  favorites,
+  onAddFavorites,
+  onRemoveFavorites,
+}) => {
   const [query, setQuery] = useState('');
   const [state, setState] = useState({
     status: 'idle', // success, error, pending
@@ -49,27 +55,35 @@ export const SearchPage = ({ favorites, onAddFavorites, onRemoveFavorites }) => 
     : false;
 
   return (
-    <div>
+    <SearchWrapper>
       <Link to='/favorites'>Go to Favorites</Link>
-      <form onSubmit={handleSubmit}>
+      <form className='search' onSubmit={handleSubmit}>
         <Input
           name='query'
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          placeholder='Search...'
         />
-        <button>Search</button>
+        <button className='search'>Search</button>
       </form>
-      {status == 'idle' && 'Ready to search'}
-      {status == 'success' && (
-        <PokemonData
-          data={pokemon}
-          onAddFavorite={onAddFavorites}
-          onRemoveFavorite={onRemoveFavorites}
-          isFavorite={isFavorite}
-        />
-      )}
-      {status == 'error' && <Error>{error}</Error>}
-      {status == 'pending' && 'Loading...'}
-    </div>
+      <div className='section-pokemon'>
+        {status == 'idle' && (
+          <div className='ready-search'>
+            <img src={ imgPokemon} alt="logo" />
+            <p>Ready to search</p>
+          </div>
+        )}
+        {status == 'success' && (
+          <PokemonData
+            data={pokemon}
+            onAddFavorite={onAddFavorites}
+            onRemoveFavorite={onRemoveFavorites}
+            isFavorite={isFavorite}
+          />
+        )}
+        {status == 'error' && <Error>{error}</Error>}
+        {status == 'pending' && 'Loading...'}
+      </div>
+    </SearchWrapper>
   );
 };
