@@ -69,7 +69,7 @@ export const SearchPage = ({
       <div className='section-pokemon'>
         {status == 'idle' && (
           <div className='ready-search'>
-            <img src={ imgPokemon} alt="logo" />
+            <img src={imgPokemon} alt='logo' />
             <p>Ready to search</p>
           </div>
         )}
