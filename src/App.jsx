@@ -1,6 +1,6 @@
-import { AuthenticateApp } from './AuthenticateApp';
+import { AuthenticateApp } from './Authentication/AuthenticateApp';
+import { UnAuthenticateApp } from './Authentication/UnAuthenticateApp';
 import { useAuth } from './context/Auth-Context';
-import { UnAuthenticateApp } from './UnAuthenticateApp';
 
 function App() {
   const { user } = useAuth();
