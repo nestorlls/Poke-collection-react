@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '../Input/Input';
+import { useAuth } from '../../context/Auth-Context';
+import FormWrapper from '../Login/Form-UI';
 
 export const SignUpForm = () => {
   const { signup } = useAuth();
@@ -19,12 +21,11 @@ export const SignUpForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    login(formData).then(console.log).catch(console.log);
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <FormWrapper>
+      <form className='form' onSubmit={handleSubmit}>
         <Input
           label={'Email'}
           id={'email'}
@@ -49,7 +50,7 @@ export const SignUpForm = () => {
           name={'firstname'}
           value={formData.first_name}
           onChange={handleChange}
-          placeholder='first name'
+          placeholder='First name'
         />
         <Input
           label={'Lastname'}
@@ -58,10 +59,12 @@ export const SignUpForm = () => {
           type={'lastname'}
           value={formData.last_name}
           onChange={handleChange}
-          placeholder='last name'
+          placeholder='Last name'
         />
-        <button type='submit'>Create account</button>
+        <button className='submit' type='submit'>
+          Create account
+        </button>
       </form>
-    </div>
+    </FormWrapper>
   );
 };

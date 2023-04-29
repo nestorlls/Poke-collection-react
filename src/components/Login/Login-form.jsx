@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/Auth-Context';
-import { login } from '../../services/auth-services';
 import { Input } from '../Input/Input';
+import FormWrapper from './Form-UI';
 
 export const LoginForm = () => {
-  
   const { login } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -23,8 +22,8 @@ export const LoginForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <FormWrapper>
+      <form className='form' onSubmit={handleSubmit}>
         <Input
           label={'Email'}
           id={'email'}
@@ -43,8 +42,10 @@ export const LoginForm = () => {
           onChange={handleChange}
           placeholder='**********'
         />
-        <button type='submit'>Login</button>
+        <button className='submit' onSubmit={handleSubmit} type='submit'>
+          Login
+        </button>
       </form>
-    </div>
+    </FormWrapper>
   );
 };
