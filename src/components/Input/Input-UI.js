@@ -16,8 +16,7 @@ const InputWrapper = styled.div`
   }
 
   input.input {
-    min-width: 258px;
-    min-height: 32px;
+    width: 100%;
     align-items: center;
     padding: 8px;
     border: none;
