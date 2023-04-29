@@ -35,7 +35,7 @@ export const reset = css`
   }
   /* Set core body defaults */
   body {
-    min-height: 100vh;
+    min-height: 80vh;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
   }
