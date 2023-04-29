@@ -1,30 +1,9 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { colors } from '../styles/Colors';
+import { colors, typeColors } from '../styles/Colors';
 import { typography } from '../styles/typography';
 import iconStar from '.././assets/star.svg';
-
-const typeColors = {
-  bug: '#A8B820',
-  dark: '#705848',
-  dragon: '#7038F8',
-  electric: '#F8D030',
-  fairy: '#EE99AC',
-  fighting: '#C03028',
-  fire: '#F08030',
-  flying: '#A890F0',
-  ghost: '#705898',
-  grass: '#78C850',
-  ground: '#E0C068',
-  ice: '#98D8D8',
-  normal: '#A8A878',
-  poison: '#A040A0',
-  psychic: '#F85888',
-  rock: '#B8A038',
-  steel: '#B8B8D0',
-  water: '#6890F0',
-};
 
 const PokeCard = styled.div`
   border: 2px solid ${({ type }) => typeColors[type]};
