@@ -3,7 +3,7 @@ import { colors } from '../../styles/Colors';
 import { typography } from '../../styles/typography';
 
 const FormWrapper = styled.div`
-  max-width: 810px;
+  max-width: 500px;
   padding: 0 6px;
   width: 100%;
 
@@ -15,7 +15,7 @@ const FormWrapper = styled.div`
 
     button.submit {
       ${typography.bold[14]}
-      max-width: 500px;
+      max-width: 300px;
       height: 32px;
       border: none;
       border-radius: 50px;
